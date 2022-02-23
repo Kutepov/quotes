@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,16 +19,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    if (Auth::check()) {
-        return redirect()->intended();
-    }
-    return view('login');
-})->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return view('user.login');
+    })->name('login');
+    Route::post('/login', [UserController::class, 'login']);
 
-Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/register', function () {
+        return view('user.register');
+    })->name('register');
+    Route::post('/register', [UserController::class, 'register']);
+});
 
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect('/');
+    })->name('logout');
+});

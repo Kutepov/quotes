@@ -1,0 +1,32 @@
+{% extends "layouts.main" %}
+{% block title %}Регистрация{%endblock%}
+
+{% block content %}
+    <h2 class="text-center">Регистрация</h2>
+    <form class="col-4 offset-4 border rounded" method="post" action="{{ route('register') }}">
+        {{ csrf_field() }}
+        <div class="mb-3">
+            <label class="col-form-label-lg" for="email">Email</label>
+            <input name="email" id="email" type="text" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label-lg" for="password">Пароль</label>
+            <input name="password" id="password" type="password" class="form-control">
+        </div>
+
+        {% if errors.any() %}
+            <div class="alert alert-danger">
+                <ul class="form-errors-list">
+                    {% for error in errors.all() %}
+                        <li>{{ error|capitalize }}</li>
+                    {% endfor %}</ul>
+            </div>
+        {% endif %}
+
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit" name="login">Зарегистрироваться</button>
+        </div>
+
+    </form>
+{% endblock %}

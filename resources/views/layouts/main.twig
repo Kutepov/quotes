@@ -12,14 +12,18 @@
 <body>
     <nav class="main-menu navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Цитаты</a>
-            <form class="d-flex">
+            <a class="navbar-brand" href="{{ route('home')}} ">Цитаты</a>
+            <div class="d-flex">
                 {% if (auth_check())%}
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+                        <span class="badge bg-secondary">{{ auth_user().email }}</span>
+                    </a>
                     <a href="{{ route('logout') }}" class="btn btn-danger">Выйти</a>
                 {% else %}
-                    <a href="{{ route('login') }}" class="btn btn-primary">Войти</a>
+                    <a href="{{ route('login') }}" class="buttons-user-auth btn btn-primary">Войти</a>
+                    <a href="{{ route('register') }}" class="buttons-user-auth btn btn-warning">Зарегистрироваться</a>
                 {% endif%}
-            </form>
+            </div>
         </div>
     </nav>
     <div class="container">
