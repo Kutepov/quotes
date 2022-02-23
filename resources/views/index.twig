@@ -1,0 +1,39 @@
+{% extends "layouts.main" %}
+{% block content %}
+    {% if quotes is not empty %}
+        <h2 class="text-center">Список цитат</h2>
+        {% if (auth_check())%}
+            <div class="row col-md-2">
+
+            </div>
+        {% endif%}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Источник</th>
+                <th scope="col">Цитата</th>
+                <th scope="col">Поделиться</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for quote in quotes %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>
+                        <a href="{{ quote.source }}" target="_blank">{{ quote.source }}</a>
+                    </td>
+                    <td>{{ quote.text }}</td>
+                    <td>{{ quote.sharedQuotes.count }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {{ quotes.links() }}
+
+    {% else %}
+        <div class="alert alert-warning">Не добавлено ни одной цитаты</div>
+    {% endif %}
+
+{% endblock %}
