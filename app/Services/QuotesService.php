@@ -20,11 +20,17 @@ class QuotesService
         $this->modelManager = $modelManager;
     }
 
-    public function getList(array $where = [], bool $withPaginate = true, int $pageSize = self::PAGINATION_PER_PAGE)
+    public function getList(array $where = [], array $orderBy = [], bool $withPaginate = true, int $pageSize = self::PAGINATION_PER_PAGE)
     {
         $result = Quote::query();
         if ($where) {
             $result->where($where);
+        }
+
+        if ($orderBy) {
+            foreach ($orderBy as $column => $direction) {
+                $result->orderBy($column, $direction);
+            }
         }
         return $withPaginate ? $result->paginate($pageSize) : $result->all();
     }

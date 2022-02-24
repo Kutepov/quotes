@@ -15,7 +15,7 @@ class HomeController extends Controller
             $where['source'] = $request->get('source');
         }
 
-        $quotes = $quotesService->getList($where)->appends($request->query());
+        $quotes = $quotesService->getList($where, ['id' => 'desc'])->appends($request->query());
 
         if ($request->ajax()) {
             return view('quotes.list', ['quotes' => $quotes]);
