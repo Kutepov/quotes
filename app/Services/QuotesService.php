@@ -9,7 +9,7 @@ class QuotesService
     private const PAGINATION_PER_PAGE = 20;
     private const CREATE_QUOTE_RULES = [
         'user_id' => 'required|integer',
-        'source' => 'required|max:255',
+        'source' => 'required|max:255|url',
         'text' => 'required|max:1000|unique:quotes',
     ];
 
