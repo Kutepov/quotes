@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quote;
+use App\Services\QuotesService;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    private const PAGINATION_PER_PAGE = 20;
-
-    public function index()
+    public function index(Request $request, QuotesService $quotesService)
     {
-        $quotes = Quote::paginate(self::PAGINATION_PER_PAGE);
-        return view('index', ['quotes' => $quotes]);
+        $where = [];
+        if ($request->get('source')) {
+            $where['source'] = $request->get('source');
+        }
+
+        $quotes = $quotesService->getList($where)->appends($request->query());
+
+        if ($request->ajax()) {
+            return view('quotes.list', ['quotes' => $quotes]);
+        }
+
+        $dropdownData = Quote::groupBy('source')->pluck('source', 'source');
+        return view('index', ['quotes' => $quotes, 'dropdownData' => $dropdownData]);
     }
 }

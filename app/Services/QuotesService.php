@@ -6,6 +6,7 @@ use App\Models\Quote;
 
 class QuotesService
 {
+    private const PAGINATION_PER_PAGE = 20;
     private const CREATE_QUOTE_RULES = [
         'user_id' => 'required|integer',
         'source' => 'required|max:255',
@@ -17,6 +18,15 @@ class QuotesService
     public function __construct(ManageModelService $modelManager)
     {
         $this->modelManager = $modelManager;
+    }
+
+    public function getList(array $where = [], bool $withPaginate = true, int $pageSize = self::PAGINATION_PER_PAGE)
+    {
+        $result = Quote::query();
+        if ($where) {
+            $result->where($where);
+        }
+        return $withPaginate ? $result->paginate($pageSize) : $result->all();
     }
 
     /**

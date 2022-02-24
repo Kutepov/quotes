@@ -5,46 +5,17 @@
             <a href="{{ route('quotes.create') }}" class="button-add-quote-link btn btn-success">Добавить цитату</a>
         </div>
     {% endif %}
-    {% if quotes is not empty %}
-        <h2 class="text-center">Список цитат</h2>
-        <table class="table table-striped table-hover table-bordered table-responsive" style="table-layout: fixed; width: 100%">
-            <thead>
-            <tr>
-                <th style="width: 40px;" scope="col">#</th>
-                <th style="width: 20%;" scope="col">Источник</th>
-                <th scope="col">Цитата</th>
-                <th style="width: 200px;" scope="col">Поделиться</th>
-                <th scope="col" style="width: 200px;"></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for quote in quotes %}
-                <tr>
-                    <th scope="row">{{ loop.index }}</th>
-                    <td>
-                        <a href="{{ quote.source }}" target="_blank">{{ quote.source }}</a>
-                    </td>
-                    <td class="quote-text">{{ quote.text|raw }}</td>
-                    <td>{{ quote.sharedQuotes.count }}</td>
-                    <td>
-                        {% if (auth_user().id == quote.user_id) %}
-                        <a href="{{ route('quotes.edit', quote.id) }}" class="badge bg-warning button-manage-quote-link">Редактировать</a>
-                            <form action="{{ route('quotes.destroy', quote.id) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="badge bg-danger button-manage-quote-link">Удалить</button>
-                            </form>
-                        {% endif %}
-                    </td>
-                </tr>
+    <h2 class="text-center">Список цитат</h2>
+    <div class="row col-md-2 filter-by-source-wrapper">
+        <select class="form-select" name="source" id="source-filter">
+            <option></option>
+            {% for item in dropdownData %}
+                <option {% if app.request.get('source') == item %}selected{% endif %}  value="{{ item }}">{{ item }}</option>
             {% endfor %}
-            </tbody>
-        </table>
-
-        {{ quotes.links() }}
-
-    {% else %}
-        <div class="alert alert-warning">Не добавлено ни одной цитаты</div>
-    {% endif %}
+        </select>
+    </div>
+    <div id="list-quotes">
+        {% include ('quotes.list') %}
+    </div>
 
 {% endblock %}

@@ -25,3 +25,11 @@
 .button-manage-quote-link:hover {
     color: white;
 }
+
+.filter-by-source-wrapper {
+    margin-bottom: 10px;
+}
+
+#list-quotes {
+    padding: 0;
+}
