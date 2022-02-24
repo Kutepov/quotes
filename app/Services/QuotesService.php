@@ -8,8 +8,8 @@ class QuotesService
 {
     private const CREATE_QUOTE_RULES = [
         'user_id' => 'required|integer',
-        'source' => 'required|max:255|unique:quotes',
-        'text' => 'required',
+        'source' => 'required|max:255',
+        'text' => 'required|max:1000|unique:quotes',
     ];
 
     private $modelManager;
@@ -32,7 +32,7 @@ class QuotesService
     public function update(array $data, Quote $quote)
     {
         $rules = self::CREATE_QUOTE_RULES;
-        $rules['source'] .= ',source,'.$quote->id;
+        $rules['text'] .= ',text,'.$quote->id;
         return $this->modelManager->save($data, $quote, $rules);
     }
 

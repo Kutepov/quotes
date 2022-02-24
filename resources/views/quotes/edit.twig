@@ -3,31 +3,5 @@
 
 {% block content %}
     <h2 class="text-center">Редактировать цитату</h2>
-    <form class="col-8 offset-2 border rounded" method="post" action="{{ route('quotes.update', quote.id) }}">
-        {{ csrf_field() }}
-        {{ method_field('PUT') }}
-        <div class="mb-3">
-            <label class="col-form-label-lg" for="source">Источник</label>
-            <input name="source" id="source" type="text" class="form-control" value="{{ quote.source }}">
-        </div>
-
-        <div class="mb-3">
-            <label class="col-form-label-lg" for="text">Текст</label>
-            <textarea name="text" id="text" class="form-control" rows="5">{{quote.text}}</textarea>
-        </div>
-
-        {% if errors.any() %}
-            <div class="alert alert-danger">
-                <ul class="form-errors-list">
-                    {% for error in errors.all() %}
-                        <li>{{ error|capitalize }}</li>
-                    {% endfor %}</ul>
-            </div>
-        {% endif %}
-
-        <div class="mb-3">
-            <button class="btn btn-primary" type="submit" name="login">Сохранить</button>
-        </div>
-
-    </form>
+    {% include "quotes._form" %}
 {% endblock %}
