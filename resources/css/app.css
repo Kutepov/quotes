@@ -9,3 +9,19 @@
 .buttons-user-auth {
     margin-left: 10px;
 }
+
+.quote-text {
+    white-space: pre-line;
+}
+
+.button-add-quote-link {
+    margin-bottom: 10px;
+}
+
+.button-manage-quote-link {
+    text-decoration: none;
+}
+
+.button-manage-quote-link:hover {
+    color: white;
+}

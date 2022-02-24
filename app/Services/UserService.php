@@ -13,30 +13,15 @@ class UserService
         'password' => 'required',
     ];
 
-    private $validator;
+    private $modelManager;
 
-    public function __construct(Validator $validator)
+    public function __construct(ManageModelService $modelManager)
     {
-        $this->validator = $validator;
+        $this->modelManager = $modelManager;
     }
 
-    /**
-     * @param array $data
-     * @return User
-     * @throws ValidationException
-     */
-    public function create(array $data): User
+    public function create(array $data)
     {
-        $validator = $this->validator::make($data, self::CREATE_USER_RULES);
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
-
-        $user = new User($data);
-        if (!$user->save()) {
-            throw new \Exception('Error save model');
-        }
-
-        return $user;
+        return $this->modelManager->save($data, new User(), self::CREATE_USER_RULES);
     }
 }
