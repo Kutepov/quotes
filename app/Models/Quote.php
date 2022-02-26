@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Share\Email;
+use App\Models\Share\Telegram;
+use App\Models\Share\Viber;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -42,5 +45,14 @@ class Quote extends Model
     public function sharedQuotes()
     {
         return $this->hasMany(SharedQuote::class);
+    }
+
+    public function getShareTypes()
+    {
+        return [
+            new Telegram(),
+            new Viber(),
+            new Email(),
+        ];
     }
 }

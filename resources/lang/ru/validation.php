@@ -12,5 +12,6 @@ return [
         'email' => 'E-mail',
         'source' => 'Источник',
         'text' => 'Текст',
+        'recipient' => 'Получатель',
     ]
 ];

@@ -24,3 +24,11 @@ services:
             MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
         volumes:
             - ./_docker/data/mysql:/var/lib/mysql
+    queue:
+        build:
+            context: .
+            dockerfile: DockerfileQueue
+        restart: always
+        command: php artisan queue:work
+        volumes:
+            - ./:/var/www

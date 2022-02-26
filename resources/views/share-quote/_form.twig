@@ -1,0 +1,24 @@
+<form id="form-share-quote" method="post" action="{{ route('quotes.share') }}">
+    {{ csrf_field() }}
+    <div class="mb-3">
+        <label class="col-form-label-lg" for="recipient">Получатель</label>
+        <input value="{{ input_old('source', quote is defined ? quote.source : null) }}" name="recipient" id="recipient" type="text" class="form-control">
+        <input type="hidden" name="quote_id" value="">
+        <input type="hidden" name="type" value="">
+    </div>
+
+    {% if errors.any() %}
+        <div class="alert alert-danger">
+            <ul class="form-errors-list">
+                {% for error in errors.all() %}
+                    <li>{{ error|capitalize }}</li>
+                {% endfor %}</ul>
+        </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit" name="login">Отправить</button>
+    </div>
+
+    <div class="result-info"></div>
+</form>

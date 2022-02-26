@@ -40,7 +40,7 @@ class ManageModelService
      * @return bool
      * @throws ValidationException
      */
-    private function validate($data, $rules): bool
+    public function validate($data, $rules): bool
     {
         $validator = $this->validator::make($data, $rules);
         if ($validator->fails()) {

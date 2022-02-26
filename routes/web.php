@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', array(HomeController::class, 'index'))->name('home');
+Route::post('/quotes/share', [QuoteController::class, 'share'])->name('quotes.share');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () {

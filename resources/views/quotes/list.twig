@@ -7,7 +7,7 @@
             <th style="width: 20%;" scope="col">Источник</th>
             <th scope="col">Цитата</th>
             <th style="width: 200px;" scope="col">Автор</th>
-            <th style="width: 200px;" scope="col">Поделиться</th>
+            <th style="width: 250px;" scope="col">Поделиться</th>
             <th scope="col" style="width: 200px;"></th>
         </tr>
         </thead>
@@ -20,7 +20,17 @@
                 </td>
                 <td class="quote-text">{{ quote.text|raw }}</td>
                 <td>{{ quote.user.email }}</td>
-                <td><span class="badge bg-success">{{ quote.sharedQuotes.count }}</span></td>
+                <td>
+                    <span class="badge bg-success">{{ quote.sharedQuotes.count }}</span>
+                    {% for share in quote.getShareTypes() %}
+                        <span class="badge bg-info share-quote-btn"
+                              data-id="{{ quote.id }}"
+                              data-share-type="{{ constant('TYPE', share) }}"
+                        >
+                            {{ share.name }}
+                        </span>
+                    {% endfor %}
+                </td>
                 <td>
                     {% if (auth_user().id == quote.user_id) %}
                         <a href="{{ route('quotes.edit', quote.id) }}"

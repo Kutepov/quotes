@@ -33,3 +33,7 @@
 #list-quotes {
     padding: 0;
 }
+
+.share-quote-btn:hover {
+    cursor: pointer;
+}

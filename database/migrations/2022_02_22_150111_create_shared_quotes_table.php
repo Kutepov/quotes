@@ -16,8 +16,8 @@ class CreateSharedQuotesTable extends Migration
         Schema::create('shared_quotes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('quote_id')->nullable(false)->constrained()->cascadeOnDelete();
-            $table->string('destination')->nullable(false);
-            $table->string('type')->unique()->nullable(false)->comment('Каким способом поделились');
+            $table->string('recipient')->nullable(false);
+            $table->string('type')->nullable(false)->comment('Каким способом поделились');
             $table->timestamps();
         });
     }

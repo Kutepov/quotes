@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quote;
 use App\Services\QuotesService;
+use App\Services\ShareQuoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -73,6 +74,12 @@ class QuoteController extends Controller
         }
         $quotesService->delete($quote);
         return redirect()->route('home')->with('success', 'Цитата успешно удалена.');
+    }
+
+    public function share(Request $request, ShareQuoteService $shareService)
+    {
+        $shareService->share($request->only('quote_id', 'recipient', 'type'));
+        return true;
     }
 
     private function addFlash(string $message, string $alertClass = '')
