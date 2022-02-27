@@ -6,6 +6,7 @@ return [
     'unique' => 'Значение поля :attribute уже занято.',
     'phone' => 'Неверный формат номера телефона.',
     'url' => ':attribute должен быть валидным url адресом.',
+    'exists' => 'Значение:attribute некорректно.',
 
     'attributes' => [
         'password' => 'Пароль',

@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Session;
 
 class QuoteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('owner:quote', ['only' => ['edit', 'update', 'destroy']]);
+    }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
@@ -40,10 +45,6 @@ class QuoteController extends Controller
      */
     public function edit(Quote $quote)
     {
-        if ($quote->user_id !== auth()->id()) {
-            $this->addFlash('Вы не можете редактировать эту цитату.', 'danger');
-            return redirect()->route('home');
-        }
         return view('quotes.edit', ['quote' => $quote]);
     }
 
@@ -68,10 +69,6 @@ class QuoteController extends Controller
      */
     public function destroy(Quote $quote, QuotesService $quotesService)
     {
-        if ($quote->user_id !== auth()->id()) {
-            $this->addFlash('Вы не можете удалить эту цитату.', 'danger');
-            return redirect()->route('home');
-        }
         $quotesService->delete($quote);
         return redirect()->route('home')->with('success', 'Цитата успешно удалена.');
     }

@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 class ShareQuoteService
 {
     private const VALIDATE_RULES = [
-        'quote_id' => 'required|integer',
+        'quote_id' => 'required|integer|exists:quotes,id',
         'type' => 'required',
         'recipient' => 'required',
     ];
